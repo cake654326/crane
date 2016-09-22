@@ -8,7 +8,7 @@
 
 
     /* @ngInject */
-    function nodeCurd(nodeBackend, $state, confirmModal, Notification, utils, updateLabelsFormModal, formModal, $filter) {
+    function nodeCurd(nodeBackend, $state, confirmModal, Notification, utils, updateLabelsFormModal, formModal, $filter, addWorkerNodeFormModal) {
         //////
         return {
             deleteVolume: deleteVolume,
@@ -23,7 +23,8 @@
             createNetwork: createNetwork,
             updateEndpoint: updateEndpoint,
             updateLabels: updateLabels,
-            removeLabels: removeLabels
+            removeLabels: removeLabels,
+            addWorkerNode: addWorkerNode
         };
         
         function updateEndpoint(nodeId, env, endpoint) {
@@ -154,6 +155,10 @@
                     Notification.success($filter('translate')('Created successfully'));
                     $state.go('node.networkDetail', {node_id: nodeId, network_id: data.Id}, {reload: true})
                 })
+        }
+
+        function addWorkerNode(env){
+            addWorkerNodeFormModal.open('/src/node/modals/create-node.html', env);
         }
 
     }
